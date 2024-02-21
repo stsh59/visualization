@@ -3,18 +3,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
-import SidebarLinkGroup from "./SidebarLinkGroup";
 import {
   ArrowLeft,
-  BadgeDollarSign,
+  Building2,
   FlaskConical,
-  LayoutDashboard,
-  Pill,
-  Settings,
+  MapPin,
+  MonitorSpeaker,
   Stethoscope,
   User,
-  Workflow,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -100,11 +96,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           {/* <!-- Menu Group --> */}
           <div>
             <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
-              MENUS
+              Administration
             </h3>
 
             <ul className="mb-6 flex flex-col gap-1.5">
-              {/* <!-- Menu Item Administration --> */}
+              {/* <!-- Menu Item Patient --> */}
               <li>
                 <Link
                   href="/"
@@ -114,85 +110,84 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   }`}
                 >
                   <User className="h-5 w-5" />
-                  Administration
+                  Patient
                 </Link>
               </li>
-              {/* <!-- Menu Item Administration --> */}
+              {/* <!-- Menu Item Patient --> */}
 
-              {/* <!-- Menu Item Clinical --> */}
+              {/* <!-- Menu Item location --> */}
               <li>
                 <Link
-                  href="/clinical"
+                  href="/location"
                   className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("clinical") &&
+                    pathname.includes("location") &&
+                    "bg-graydark dark:bg-meta-4"
+                  }`}
+                >
+                  <MapPin className="h-5 w-5" />
+                  Location
+                </Link>
+              </li>
+              {/* <!-- Menu Item location --> */}
+
+              {/* <!-- Menu Item organization --> */}
+              <li>
+                <Link
+                  href="/organization"
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes("organization") &&
+                    "bg-graydark dark:bg-meta-4"
+                  }`}
+                >
+                  <Building2 className="h-5 w-5" />
+                  Organization
+                </Link>
+              </li>
+              {/* <!-- Menu Item organization --> */}
+
+              {/* <!-- Menu Item Practitioner --> */}
+              <li>
+                <Link
+                  href="/practitioner"
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes("practitioner") &&
                     "bg-graydark dark:bg-meta-4"
                   }`}
                 >
                   <Stethoscope className="h-5 w-5" />
-                  Clinical
+                  Practitioner
                 </Link>
               </li>
-              {/* <!-- Menu Item Clinical --> */}
+              {/* <!-- Menu Item Practitioner --> */}
 
-              {/* <!-- Menu Item Diagnostics --> */}
+              {/* <!-- Menu Item Care Team --> */}
               <li>
                 <Link
-                  href="/diagnostics"
+                  href="/care-team"
                   className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("diagnostics") &&
+                    pathname.includes("care-team") &&
                     "bg-graydark dark:bg-meta-4"
                   }`}
                 >
                   <FlaskConical className="h-5 w-5" />
-                  Diagnostics
+                  Care Team
                 </Link>
               </li>
-              {/* <!-- Menu Item Diagnostics --> */}
+              {/* <!-- Menu Item Care Team --> */}
 
-              {/* <!-- Menu Item Medications --> */}
+              {/* <!-- Menu Item Device --> */}
               <li>
                 <Link
-                  href="/medications"
+                  href="/device"
                   className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("medications") &&
-                    "bg-graydark dark:bg-meta-4"
+                    pathname.includes("device") && "bg-graydark dark:bg-meta-4"
                   }`}
                 >
-                  <Pill className="h-5 w-5" />
-                  Medications
+                  <MonitorSpeaker className="h-5 w-5" />
+                  Device
                 </Link>
               </li>
-              {/* <!-- Menu Item Medications --> */}
-
-              {/* <!-- Menu Item Workflow --> */}
-              <li>
-                <Link
-                  href="/workflow"
-                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("workflow") &&
-                    "bg-graydark dark:bg-meta-4"
-                  }`}
-                >
-                  <Workflow className="h-5 w-5" />
-                  Workflow
-                </Link>
-              </li>
-              {/* <!-- Menu Item Workflow --> */}
-
-              {/* <!-- Menu Item Financial --> */}
-              <li>
-                <Link
-                  href="/financial"
-                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("financial") &&
-                    "bg-graydark dark:bg-meta-4"
-                  }`}
-                >
-                  <BadgeDollarSign className="h-5 w-5" />
-                  Financial
-                </Link>
-              </li>
-              {/* <!-- Menu Item Financial --> */}
+              {/* <!-- Menu Item Device --> */}
             </ul>
           </div>
         </nav>

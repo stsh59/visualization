@@ -1,8 +1,37 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
-import { Lock, Mail, User } from "lucide-react";
+import { Loader2, Lock, Mail, User } from "lucide-react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const SignUp: React.FC = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const onSubmit = async (e: any) => {
+    e.preventDefault();
+    try {
+      setIsLoading(true);
+      await axios.post(`${BASE_URL}/auth/signup`, {
+        name,
+        email,
+        password,
+      });
+      router.push("/auth/signin");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="h-[100vh] rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="flex h-full flex-wrap items-center justify-center">
@@ -13,8 +42,7 @@ const SignUp: React.FC = () => {
             </Link>
 
             <p className="2xl:px-20">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit
-              suspendisse.
+              Create an account on Data Visualization Dashboard
             </p>
 
             <span className="mt-15 inline-block">
@@ -149,15 +177,18 @@ const SignUp: React.FC = () => {
               Sign Up to SatishWagle
             </h2>
 
-            <form>
+            <form onSubmit={onSubmit}>
               <div className="mb-4">
                 <label className="mb-2.5 block font-medium text-black dark:text-white">
                   Name
                 </label>
+
                 <div className="relative">
                   <input
                     type="text"
                     placeholder="Enter your full name"
+                    required
+                    onChange={(e) => setName(e.target.value)}
                     className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
 
@@ -175,6 +206,8 @@ const SignUp: React.FC = () => {
                   <input
                     type="email"
                     placeholder="Enter your email"
+                    required
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
 
@@ -192,6 +225,8 @@ const SignUp: React.FC = () => {
                   <input
                     type="password"
                     placeholder="Enter your password"
+                    required
+                    onChange={(e) => setPassword(e.target.value)}
                     className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
 
@@ -201,30 +236,13 @@ const SignUp: React.FC = () => {
                 </div>
               </div>
 
-              <div className="mb-6">
-                <label className="mb-2.5 block font-medium text-black dark:text-white">
-                  Re-type Password
-                </label>
-                <div className="relative">
-                  <input
-                    type="password"
-                    placeholder="Re-enter your password"
-                    className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                  />
-
-                  <span className="absolute right-4 top-4">
-                    <Lock className="h-5 w-5 opacity-85" />
-                  </span>
-                </div>
-              </div>
-
-              <Link href="/" className="mb-5">
-                <input
-                  type="submit"
-                  value="Create account"
-                  className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
-                />
-              </Link>
+              <button
+                className="mb-5 flex w-full cursor-pointer items-center justify-center rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
+                type="submit"
+              >
+                Create Account
+                {isLoading && <Loader2 className="ml-3 animate-spin" />}
+              </button>
 
               <div className="mt-6 text-center">
                 <p>

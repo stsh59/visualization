@@ -1,8 +1,35 @@
-import React from "react";
+"use client";
+
 import Link from "next/link";
-import { Lock, Mail } from "lucide-react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { Loader2, Lock, Mail } from "lucide-react";
+import axios from "axios";
+
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const SignIn: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const onSubmit = async (e: any) => {
+    e.preventDefault();
+    try {
+      setIsLoading(true);
+      const data = await axios.post(`${BASE_URL}/auth/login`, {
+        email,
+        password,
+      });
+      localStorage.setItem("accessToken", data.data.user.token);
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <div className="h-[100vh] rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="flex h-full flex-wrap items-center justify-center">
@@ -149,7 +176,7 @@ const SignIn: React.FC = () => {
               Sign In to SatishWagle
             </h2>
 
-            <form>
+            <form onSubmit={onSubmit}>
               <div className="mb-4">
                 <label className="mb-2.5 block font-medium text-black dark:text-white">
                   Email
@@ -159,6 +186,7 @@ const SignIn: React.FC = () => {
                   <input
                     type="email"
                     placeholder="Enter your email"
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
 
@@ -177,7 +205,8 @@ const SignIn: React.FC = () => {
                   <input
                     type="password"
                     placeholder="6+ Characters, 1 Capital letter"
-                    className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-white outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
 
                   <span className="absolute right-4 top-4">
@@ -186,13 +215,13 @@ const SignIn: React.FC = () => {
                 </div>
               </div>
 
-              <Link href="/" className="mb-5">
-                <input
-                  type="submit"
-                  value="Sign In"
-                  className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
-                />
-              </Link>
+              <button
+                className="mb-5 flex w-full cursor-pointer items-center justify-center rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
+                type="submit"
+              >
+                Sign in
+                {isLoading && <Loader2 className="ml-3 animate-spin" />}
+              </button>
 
               <div className="mt-6 text-center">
                 <p>

@@ -1,18 +1,17 @@
 "use client";
 
-import Patient from "@/components/Dashboard/Patient";
+import Practitioner from "@/components/Dashboard/Practitioner";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { redirect } from "next/navigation";
 
-export default function Home() {
+export default function ClinicalPage() {
   if (!localStorage.getItem("accessToken")) {
     return redirect("/auth/signin");
   }
-
   return (
     <>
       <DefaultLayout>
-        <Patient />
+        <Practitioner />
       </DefaultLayout>
     </>
   );

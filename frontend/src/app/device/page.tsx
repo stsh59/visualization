@@ -1,10 +1,10 @@
 "use client";
 
-import Patient from "@/components/Dashboard/Patient";
+import Device from "@/components/Dashboard/Device";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { redirect } from "next/navigation";
 
-export default function Home() {
+export default function MedicationsPage() {
   if (!localStorage.getItem("accessToken")) {
     return redirect("/auth/signin");
   }
@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <DefaultLayout>
-        <Patient />
+        <Device />
       </DefaultLayout>
     </>
   );

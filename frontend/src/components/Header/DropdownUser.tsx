@@ -1,11 +1,39 @@
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { ChevronDown, LogOut } from "lucide-react";
-import { redirect, useRouter } from "next/navigation";
+import { ChevronDown, Loader2, LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+
+type TUserDetail = {
+  name: string;
+  email: string;
+};
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [userDetail, setUserDetail] = useState<TUserDetail>({} as TUserDetail);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        setIsLoading(true);
+        const data = await axios.get(`${BASE_URL}/auth/me`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+        setUserDetail(data.data.user);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getData();
+  }, []);
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
@@ -45,25 +73,17 @@ const DropdownUser = () => {
         className="flex items-center gap-4"
         href="#"
       >
-        <span className="hidden text-right lg:block">
-          <span className="block text-sm font-medium text-black dark:text-white">
-            Satish Wagle
-          </span>
-          <span className="block text-xs">Super Admin</span>
-        </span>
+        <span className=" block text-right">
+          {userDetail?.name && (
+            <Fragment>
+              <span className="block text-sm font-medium text-black dark:text-white">
+                {userDetail.name}
+              </span>
+              <span className="block text-xs">{userDetail.email}</span>
+            </Fragment>
+          )}
 
-        <span className="h-12 w-12 rounded-full">
-          <Image
-            width={112}
-            height={112}
-            src={"/images/user/user-01.jpeg"}
-            style={{
-              width: "auto",
-              height: "auto",
-            }}
-            alt="User"
-            className="rounded-full"
-          />
+          {isLoading && <Loader2 className="animate-spin " />}
         </span>
 
         <ChevronDown className="h-5 w-5" />
@@ -80,7 +100,10 @@ const DropdownUser = () => {
       >
         <button
           className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
-          onClick={() => router.push("/auth/signin")}
+          onClick={() => {
+            localStorage.clear();
+            router.push("/auth/signin");
+          }}
         >
           <LogOut className="h-5 w-5" />
           Log Out
