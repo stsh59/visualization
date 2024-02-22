@@ -46,7 +46,10 @@ export const columns: ColumnDef<any>[] = [
       const resource = row.getValue("resource");
       return (
         <p className="ml-4">
-          {(resource.meta && resource.meta.lastUpdated.slice(0, 10)) ?? "-"}
+          {
+            //@ts-ignore
+            (resource.meta && resource.meta.lastUpdated.slice(0, 10)) ?? "-"
+          }
         </p>
       );
     },
