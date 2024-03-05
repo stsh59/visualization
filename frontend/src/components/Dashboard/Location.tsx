@@ -17,7 +17,7 @@ const Location: React.FC = () => {
     const getData = async () => {
       try {
         setIsLoading(true);
-        const data = await axios.get(`${FHIR_URL}/Location`);
+        const data = await axios.get(`${FHIR_URL}/Location?_count=1000`);
         setData(data.data.entry);
       } catch (error) {
         console.log(error);

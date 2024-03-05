@@ -22,8 +22,10 @@ export const columns: ColumnDef<any>[] = [
     },
     cell: ({ row }) => {
       const resource = row.getValue("resource");
-      //@ts-ignore
-      return <p>{resource.name[0].family ?? "-"}</p>;
+      return (
+        //@ts-ignore
+        <p>{(resource?.name?.length && resource?.name[0].family) ?? "-"}</p>
+      );
     },
   },
   {
@@ -42,7 +44,7 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       const resource = row.getValue("resource");
       //@ts-ignore
-      return <p>{resource.name[0].given[0] ?? "-"}</p>;
+      return <p>{(resource?.name?.length && resource.name[0].given) ?? "-"}</p>;
     },
   },
   {
