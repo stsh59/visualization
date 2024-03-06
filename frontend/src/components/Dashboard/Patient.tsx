@@ -8,8 +8,8 @@ import TableOne from "../Tables/TableOne";
 import CardDataStats from "../CardDataStats";
 import MapOne from "../Maps/MapOne";
 import { Loader2, Users } from "lucide-react";
-import { DataTable } from "@/app/_components/data-table";
-import { columns } from "@/app/_components/columns";
+import { DataTable } from "@/app/patient/_components/data-table";
+import { columns } from "@/app/patient/_components/columns";
 import axios from "axios";
 
 const FHIR_URL = process.env.NEXT_PUBLIC_FHIR_URL;
@@ -22,8 +22,9 @@ const Patient: React.FC = () => {
     const getData = async () => {
       try {
         setIsLoading(true);
-        const data = await axios.get(`${FHIR_URL}/Patient?_count=1000`);
+        const data = await axios.get(`${FHIR_URL}/Patient?_count=10000`);
         setData(data.data.entry);
+        console.log(data.data.entry.length, "Trishan");
       } catch (error) {
         console.log(error);
       } finally {
@@ -35,7 +36,7 @@ const Patient: React.FC = () => {
 
   return (
     <>
-      <h2 className="mb-6 text-2xl font-semibold">Patient Dashboard</h2>
+      <h2 className="mb-6 text-2xl font-semibold">Patient Table</h2>
 
       {/* <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
         <CardDataStats title="Total Users" total="3.456" rate="0.43%" levelUp>

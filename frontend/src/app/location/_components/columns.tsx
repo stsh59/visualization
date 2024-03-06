@@ -1,16 +1,12 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
 
 export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "resource",
     header: ({ column }) => {
-      return <Button variant="ghost">Location Id</Button>;
+      return <p className="pl-0">Location Id</p>;
     },
     cell: ({ row }) => {
       const resource = row.getValue("resource");
@@ -21,15 +17,7 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "resource",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Location
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+      return <p className="pl-0">Location</p>;
     },
     cell: ({ row }) => {
       const resource = row.getValue("resource");
@@ -40,7 +28,7 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "resource",
     header: ({ column }) => {
-      return <Button variant="ghost">Last Modified</Button>;
+      return <p className="pl-0">Last Modified</p>;
     },
     cell: ({ row }) => {
       const resource = row.getValue("resource");

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import CardDataStats from "../CardDataStats";
 import { Loader2Icon, Users } from "lucide-react";
 import axios from "axios";
-import { DataTable } from "@/app/organization/_components/data-table";
+import { DataTable } from "@/app/patient/_components/data-table";
 import { columns } from "@/app/organization/_components/columns";
 
 const FHIR_URL = process.env.NEXT_PUBLIC_FHIR_URL;
@@ -17,7 +17,7 @@ const Organization: React.FC = () => {
     const getData = async () => {
       try {
         setIsLoading(true);
-        const data = await axios.get(`${FHIR_URL}/Organization?_count=1000`);
+        const data = await axios.get(`${FHIR_URL}/Organization?_count=10000`);
         setData(data.data.entry);
       } catch (error) {
         console.log(error);
@@ -29,7 +29,7 @@ const Organization: React.FC = () => {
   }, []);
   return (
     <>
-      <h2 className="mb-6 text-2xl font-semibold">Organization Dashboard</h2>
+      <h2 className="mb-6 text-2xl font-semibold">Organization Table</h2>
 
       {isLoading && (
         <div className="my-12 flex w-full items-center justify-center">

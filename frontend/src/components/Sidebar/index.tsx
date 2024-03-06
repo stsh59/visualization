@@ -7,6 +7,7 @@ import {
   ArrowLeft,
   Building2,
   FlaskConical,
+  LayoutDashboard,
   MapPin,
   MonitorSpeaker,
   Stethoscope,
@@ -96,9 +97,24 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         <nav className="mt-5 px-4 py-4 lg:mt-9 lg:px-6">
           {/* <!-- Menu Group --> */}
 
+          <ul>
+            <li>
+              <Link
+                href="/"
+                className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                  (pathname === "/" || pathname.includes("administration")) &&
+                  "bg-graydark dark:bg-meta-4"
+                }`}
+              >
+                <LayoutDashboard className="h-5 w-5" />
+                Dashboard
+              </Link>
+            </li>
+          </ul>
+
           <SidebarLinkGroup
             activeCondition={
-              pathname === "/" ||
+              pathname === "/patient" ||
               pathname === "/location" ||
               pathname === "/organization" ||
               pathname === "/practitioner" ||
@@ -148,10 +164,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
                       <li>
                         <Link
-                          href="/"
+                          href="/patient"
                           className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 text-sm font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                            (pathname === "/" ||
-                              pathname.includes("administration")) &&
+                            pathname.includes("patient") &&
                             "bg-graydark dark:bg-meta-4"
                           }`}
                         >

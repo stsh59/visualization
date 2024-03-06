@@ -1,24 +1,12 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
 
 export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "resource",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Organization Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+      return <p className="pl-0">Organization Name</p>;
     },
     cell: ({ row }) => {
       const resource = row.getValue("resource");
@@ -29,7 +17,7 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "resource",
     header: ({ column }) => {
-      return <Button variant="ghost">Contact Number</Button>;
+      return <p className="pl-0">Contact Number</p>;
     },
     cell: ({ row }) => {
       const resource = row.getValue("resource");
@@ -40,7 +28,7 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "resource",
     header: ({ column }) => {
-      return <Button variant="ghost">Country</Button>;
+      return <p className="pl-0">Country</p>;
     },
     cell: ({ row }) => {
       const resource = row.getValue("resource");
@@ -51,7 +39,7 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "resource",
     header: ({ column }) => {
-      return <Button variant="ghost">City</Button>;
+      return <p className="pl-0">City</p>;
     },
     cell: ({ row }) => {
       const resource = row.getValue("resource");
@@ -62,7 +50,7 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "resource",
     header: ({ column }) => {
-      return <Button variant="ghost">State</Button>;
+      return <p className="pl-0">State</p>;
     },
     cell: ({ row }) => {
       const resource = row.getValue("resource");
@@ -73,7 +61,7 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "resource",
     header: ({ column }) => {
-      return <Button variant="ghost">Last Modified</Button>;
+      return <p className="pl-0">Last Modified</p>;
     },
     cell: ({ row }) => {
       const resource = row.getValue("resource");
